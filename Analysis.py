@@ -49,6 +49,8 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     plt.title("Security Incidents Over the Years")
     for p in ax.patches:
         ax.annotate(f"{int(p.get_height())}", (p.get_x() + p.get_width() / 2, p.get_height()), ha='center', va='bottom')
+    plt.tight_layout()
+    plt.savefig("incident_trend.png")
     pdf.savefig()
     plt.close()
 
@@ -63,6 +65,8 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     for p in ax.patches:
         width = p.get_width()
         ax.annotate(f"{int(width)}", (width + 1, p.get_y() + p.get_height() / 2), va='center')
+    plt.tight_layout()
+    plt.savefig("means_of_attack.png")
     pdf.savefig()
     plt.close()
 
@@ -77,6 +81,8 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     for p in ax.patches:
         width = p.get_width()
         ax.annotate(f"{int(width)}", (width + 1, p.get_y() + p.get_height() / 2), va='center')
+    plt.tight_layout()
+    plt.savefig("affected_countries.png")
     pdf.savefig()
     plt.close()
 
@@ -84,12 +90,14 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     top_attacks = df["Means of attack"].value_counts().head(10).index
     filtered_df = df[df["Means of attack"].isin(top_attacks)]
 
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(14, 6))
     sns.boxplot(data=filtered_df, x="Means of attack", y="Total affected", showfliers=False)
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=45, ha='right')
     plt.xlabel("Means of Attack")
     plt.ylabel("Total Affected People (Killed + Wounded + Kidnapped)")
     plt.title("Impact of Top 10 Attack Types on Number of Affected People")
+    plt.tight_layout()
+    plt.savefig("impact_by_attack_type.png")
     pdf.savefig()
     plt.close()
 
@@ -97,6 +105,8 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     plt.figure(figsize=(10, 6))
     sns.heatmap(df[victim_cols].corr(), annot=True, cmap="coolwarm", linewidths=0.5)
     plt.title("Correlation Matrix for Victim Counts")
+    plt.tight_layout()
+    plt.savefig("correlation_matrix.png")
     pdf.savefig()
     plt.close()
 
@@ -130,6 +140,8 @@ with PdfPages("C:/Users/Nelvin/Desktop/security_incident_report.pdf") as pdf:
     plt.legend()
     plt.ylim(0, max(combined_df["Total Incidents"].max(), future_df["Predicted Incidents"].max()) + 40)
     plt.grid(True, linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    plt.savefig("forecast_plot.png")
     pdf.savefig()
     plt.close()
 
